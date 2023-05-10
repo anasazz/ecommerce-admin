@@ -50,6 +50,8 @@ function Categories({swal}) {
     }))
     );
   }
+
+  
   function deleteCategory(category){
     swal.fire({
       title: 'Are you sure?',
