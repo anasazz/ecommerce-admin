@@ -32,3 +32,35 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+
+def UserRegisterView(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        first_name = request.POST['fname']
+        last_name = request.POST['lname']
+        nickname = request.POST['nickname']
+        email = request.POST['email']
+        secret_q = request.POST['secret_q']
+        secret_a = request.POST['secret_a']
+
+        if Cuentas.objects.filter(cuenta=username).exists():
+            messages.error(request, "Username already being used...")
+            print("Username already being used...")
+            return redirect('register-page')
+
+        #elif Cuentas.objects.filter(email=email).exists():
+        #    messages.error(request, "Email already being used...")
+        #    print("Email already being used...")
+        #    return redirect('register-page')
+        else:
+            messages.add_message(request, messages.SUCCESS,"Success! Your account has been created.")
+            # uname, contraseña=password, email=email, nombre=first_name, apellido=last_name, apodo=nickname, pregunta=secret_q, respuesta=secret_a)
+            auth_user = User.objects.create_user(username=username, password=password, email=email, first_name=first_name, last_name=last_name)
+            user = Cuentas(sync_django=auth_user  ,cuenta=username, contraseña=password, email=email, nombre=first_name, apellido=last_name, apodo=nickname, pregunta=secret_q, respuesta=secret_a)
+            user.save()
+            auth_user.save()
+            return redirect('login-page')
+    else:
+        return render(request, 'register.html')
