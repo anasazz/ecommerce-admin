@@ -15,6 +15,8 @@ export const authOptions = {
 
     }),
   ],
+
+  
   adapter: MongoDBAdapter(clientPromise),
   callbacks: {
     session: ({session,token,user}) => {
