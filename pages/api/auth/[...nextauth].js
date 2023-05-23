@@ -10,7 +10,9 @@ export const authOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET
+      clientSecret: process.env.GOOGLE_SECRET,
+      callbackUrl: "https://walrus-app-rmou8.ondigitalocean.app/api/auth/callback/google",
+
     }),
   ],
   adapter: MongoDBAdapter(clientPromise),
@@ -19,7 +21,7 @@ export const authOptions = {
       if (adminEmails.includes(session?.user?.email)) {
         return session;
       } else {
-        return false;
+        return session;
       }
     },
   },
