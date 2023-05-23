@@ -11,7 +11,7 @@ export const authOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
-      callbackUrl: "https://walrus-app-rmou8.ondigitalocean.app/api/auth/callback/google",
+      callbackUrl: `${process.env.NEXTAUTH_URL}/api/auth/callback/google`,
 
     }),
   ],
